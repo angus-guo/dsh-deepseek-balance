@@ -1,0 +1,4 @@
+node_modules/
+pnpm-workspace.yaml
+.DS_Store
+*.log

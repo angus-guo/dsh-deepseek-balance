@@ -1,0 +1,4 @@
+# dsh-deepseek-balance — DeepSeek 余额 + 会话费用，侧边栏底部入口。
+- insert:
+    - id: deepseek-balance
+      name: dsh-deepseek-balance

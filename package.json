@@ -1,0 +1,39 @@
+{
+  "name": "dsh-deepseek-balance",
+  "version": "0.1.0",
+  "description": "DeepSeek balance and session cost widget for the dsh web GUI, pinned to the sidebar foot.",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./client": "./src/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "slots"
+      ]
+    }
+  },
+  "keywords": [
+    "dsh",
+    "deepseek",
+    "balance",
+    "quota",
+    "plugin"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@deepseek-ai/dsh-credentials": "0.1.0-rc.7"
+  }
+}

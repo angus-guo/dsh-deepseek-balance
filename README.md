@@ -6,9 +6,7 @@
 
 ## 截图
 
-> 占位：请将 Web UI 的实际截图保存为 `docs/screenshot.png`，然后取消下面这行图片的注释。
-
-<!-- ![screenshot](docs/screenshot.png) -->
+![screenshot](docs/screenshot.png)
 
 ## 功能
 

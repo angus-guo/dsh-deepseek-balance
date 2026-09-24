@@ -1,6 +1,10 @@
-# dsh-deepseek-balance
+# dsh-deepseek-balance-cn
 
 > DeepSeek Harness（`dsh`）Web GUI 插件：在**侧边栏底部（设置入口上方）**显示 DeepSeek API 余额，点击展开详情。
+
+> npm 包名 `dsh-deepseek-balance-cn`。原名 `dsh-deepseek-balance` 已被他人占用
+> （见 https://www.npmjs.com/package/dsh-deepseek-balance —— 那是另一位作者的插件）。
+> **包名必须与三处自引用完全一致**，否则 `dsh` 启动或插件加载会失败，详见「包名一致性」。
 
 基于 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 的插件架构（一切皆插件）编写，纯 JavaScript、零构建步骤。
 
@@ -20,10 +24,10 @@
 
 ## 安装
 
-### 方式一：从 npm（发布后）
+### 方式一：从 npm
 
 ```sh
-dsh plugin --profile web add dsh-deepseek-balance
+dsh plugin --profile web add dsh-deepseek-balance-cn
 ```
 
 ### 方式二：本地安装
@@ -37,14 +41,33 @@ dsh plugin --profile web add .
 安装后重启并刷新页面：
 
 ```sh
-dsh web
+dsh --profile web
 ```
 
-> 浏览器侧 bundle 在 `dsh web` 重启时重新生成，请**硬刷新**页面（`Cmd + Shift + R`）。
+> 浏览器侧 bundle 在 `dsh --profile web` 重启时重新生成，请**硬刷新**页面（`Cmd + Shift + R`）。
+
+> 若默认端口 3080 已被占用，会报 `EADDRINUSE`。换端口或让系统自选：
+
+```sh
+dsh --profile web --port 3081
+dsh --profile web --port 0      # 由操作系统挑一个空闲端口
+```
 
 ### 前置条件
 
 - 已在 **设置 → 模型** 中配置 DeepSeek API Key（存储在 `~/.dsh/.credentials.yaml`，或通过环境变量 `DEEPSEEK_API_KEY` 提供）。
+
+## 包名一致性（重要）
+
+`dsh` 的插件包名参与**三处互相独立的解析**，任何一处不一致都会导致启动失败或插件静默不加载：
+
+| 位置 | 字段 | 被谁使用 | 不一致时的症状 |
+|---|---|---|---|
+| `cordis.patch.yml` | `name:` | cordis loader 的 `import()` 说明符，从 profile 目录解析 | **`dsh` 直接启动失败**：`Cannot find package '...' imported from ~/.dsh/profiles/web/` |
+| `src/client.js` | `window.__ModuleLoader__.load({ id })` | 浏览器端模块表键；Host 侧 boot graph 用**包名**建行 | 启动正常但插件不渲染：`loaded without registering "<包名>" via __ModuleLoader__.load` |
+| `package.json` | `name` | npm 安装名 + 上述两者的基准 | 与 `cordis.patch.yml` 不一致即触发第一种失败 |
+
+`src/index.js` 的 `export const name` 只是 cordis 插件的标识名，不参与解析，但同样应保持一致。
 
 ## 使用
 
@@ -77,6 +100,16 @@ src/
 └── client.js     # 浏览器半：侧边栏底部入口 + 详情面板
 cordis.patch.yml  # bundle patch 层
 ```
+
+## 更新日志
+
+### 0.1.1
+
+- **修复**：`cordis.patch.yml` 的 `name` 仍是改名前旧名 `dsh-deepseek-balance`，导致 `dsh` 启动即失败
+  （`Cannot find package 'dsh-deepseek-balance'`）。0.1.0 在任何环境下都无法启动。
+- **修复**：`src/client.js` 的 `window.__ModuleLoader__.load({ id })` 同样是旧名，会让插件在浏览器端
+  加载失败（`loaded without registering`）。
+- 统一 `package.json` / `cordis.patch.yml` / `src/index.js` / `src/client.js` 四处包名。
 
 ## 已知限制
 

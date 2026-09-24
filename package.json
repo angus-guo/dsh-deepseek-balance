@@ -1,8 +1,12 @@
 {
-  "name": "dsh-deepseek-balance",
-  "version": "0.1.0",
+  "name": "dsh-deepseek-balance-cn",
+  "version": "0.1.1",
   "description": "DeepSeek balance and session cost widget for the dsh web GUI, pinned to the sidebar foot.",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angus-guo/dsh-deepseek-balance.git"
+  },
   "main": "src/index.js",
   "exports": {
     ".": "./src/index.js",

@@ -1,4 +1,8 @@
-# dsh-deepseek-balance — DeepSeek 余额 + 会话费用，侧边栏底部入口。
+# dsh-deepseek-balance-cn — DeepSeek 余额 + 会话费用，侧边栏底部入口。
+#
+# NOTE: `name` is the module specifier the cordis loader imports, resolved from
+# the profile directory. It MUST equal the published package name — a stale
+# value here makes `dsh` fail to start with ERR_MODULE_NOT_FOUND.
 - insert:
     - id: deepseek-balance
-      name: dsh-deepseek-balance
+      name: dsh-deepseek-balance-cn

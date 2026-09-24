@@ -1,5 +1,5 @@
 /**
- * dsh-deepseek-balance — host half.
+ * dsh-deepseek-balance-cn — host half.
  *
  * 两个本地 HTTP 路由：
  *   GET /api/quota                    → 余额（公开接口 /user/balance）
@@ -10,7 +10,7 @@
 import { credentialRef } from '@deepseek-ai/dsh-credentials'
 import { costOf } from './pricing.js'
 
-export const name = 'dsh-deepseek-balance'
+export const name = 'dsh-deepseek-balance-cn'
 export const inject = ['webServer', 'credentials']
 
 const BALANCE_PATH = '/api/quota'
@@ -55,7 +55,7 @@ async function sessionCost(ctx, sessionId) {
         return rec
       }
     } catch (error) {
-      ctx.logger?.warn('dsh-deepseek-balance: log replay failed', error)
+      ctx.logger?.warn('dsh-deepseek-balance-cn: log replay failed', error)
     }
   }
   return ledger.get(sessionId) ?? { cost: 0, input: 0, cache: 0, output: 0 }

@@ -1,8 +1,13 @@
-// dsh-deepseek-balance — browser half.
+// dsh-deepseek-balance-cn — browser half.
 // 注册到 sidebar.footer.action（侧边栏底部、设置入口上方）：宽栏显示 "$ + 余额"，
 // 窄栏只显示 "$"；点击展开详情面板（余额 / 可用 / 当前对话费用 / 赠送）。
+// NOTE: this `id` is the client-module table key. The host half keys its boot
+// graph row by PACKAGE NAME and ClientModuleSystem.register() indexes the
+// factory by this id, so a mismatch fails with
+// `loaded without registering "<package name>" via __ModuleLoader__.load`.
+// It MUST equal the package name.
 window.__ModuleLoader__.load({
-  id: 'dsh-deepseek-balance',
+  id: 'dsh-deepseek-balance-cn',
   factory: (require) => {
     const { useState, useEffect, useCallback } = require('react')
     const { jsx, jsxs, Fragment } = require('react/jsx-runtime')
